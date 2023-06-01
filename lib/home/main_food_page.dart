@@ -42,6 +42,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
                           SmallText(
                             text: "Agadir",
                             color: AppColors.mainBlackColor,
+                            size: 14,
                           ),
                           Icon(Icons.arrow_drop_down_rounded)
                         ],
