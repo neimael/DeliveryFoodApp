@@ -11,6 +11,7 @@ class RecommandedFoodDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -70,6 +71,97 @@ class RecommandedFoodDetails extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            padding: EdgeInsets.only(
+              left: 50,
+              right: 50,
+              top: 10,
+              bottom: 10,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                AppIconWidget(
+                  icon: Icons.remove,
+                  backgroundColor: AppColors.mainColor,
+                  iconColor: Colors.white,
+                  iconSize: 24,
+                ),
+                BigText(
+                  text: " 60 DH " + " x " + " 0 ",
+                  color: AppColors.mainBlackColor,
+                  size: 26,
+                ),
+                AppIconWidget(
+                  icon: Icons.add,
+                  backgroundColor: AppColors.mainColor,
+                  iconColor: Colors.white,
+                  iconSize: 24,
+                ),
+              ],
+            ),
+          ),
+          Container(
+            height: 120,
+            padding: EdgeInsets.only(
+              top: 30,
+              bottom: 30,
+              left: 20,
+              right: 20,
+            ),
+            decoration: BoxDecoration(
+              color: AppColors.buttonBackgroundColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(40),
+                topRight: Radius.circular(40),
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                    padding: EdgeInsets.only(
+                      top: 20,
+                      bottom: 20,
+                      left: 20,
+                      right: 20,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        20,
+                      ),
+                      color: Colors.white,
+                    ),
+                    child: Icon(
+                      Icons.favorite,
+                      color: AppColors.mainColor,
+                    )),
+                Container(
+                  padding: EdgeInsets.only(
+                    top: 20,
+                    bottom: 20,
+                    left: 20,
+                    right: 20,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(
+                      20,
+                    ),
+                    color: AppColors.mainColor,
+                  ),
+                  child: BigText(
+                    text: "60 DH Add To Cart",
+                    color: Colors.white,
+                  ),
+                ),
+              ],
             ),
           ),
         ],
