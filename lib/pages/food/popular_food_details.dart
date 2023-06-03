@@ -162,7 +162,7 @@ class PopularFoodDetails extends StatelessWidget {
                 color: AppColors.mainColor,
               ),
               child: BigText(
-                text: "10 DH Add To Cart",
+                text: "80 DH Add To Cart",
                 color: Colors.white,
               ),
             ),
