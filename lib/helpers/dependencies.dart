@@ -4,9 +4,11 @@ import 'package:deliveryfood/data/repository/popular_product_repo.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import '../utils/constants.dart';
+
 Future<void> init() async {
   Get.lazyPut(
-    () => ApiClient(appBaseUrl: ""),
+    () => ApiClient(appBaseUrl: "http://mvs.bslmeiyu.com"),
   );
 
   Get.lazyPut(
