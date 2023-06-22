@@ -3,13 +3,9 @@ import 'package:get/get.dart';
 
 import '../../utils/constants.dart';
 
-class PopularProductRepo extends GetxService {
+class RecommendedProductRepo extends GetxService {
   final ApiClient apiClient;
-  PopularProductRepo({required this.apiClient});
-
-  Future<Response> getPopularProductList() async {
-    return await apiClient.getData(AppConstants.popularProductUri);
-  }
+  RecommendedProductRepo({required this.apiClient});
 
   Future<Response> getRecommendedProductList() async {
     return await apiClient.getData(AppConstants.recommendedProductUri);

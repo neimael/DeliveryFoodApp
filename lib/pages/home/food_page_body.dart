@@ -1,4 +1,5 @@
 import 'package:deliveryfood/controllers/popular_product_controller.dart';
+import 'package:deliveryfood/controllers/recommended_product_controller.dart';
 import 'package:deliveryfood/models/products_model.dart';
 import 'package:deliveryfood/utils/colors.dart';
 import 'package:deliveryfood/utils/constants.dart';
@@ -122,96 +123,115 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             ],
           ),
         ),
-        Container(
-          height: 140 * 10,
-          child: ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return Container(
-                  margin: EdgeInsets.only(
-                    left: 20,
-                    right: 20,
-                    bottom: 20,
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 120,
-                        height: 120,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                            20,
-                          ),
-                          color: Colors.white,
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: AssetImage(
-                              "assets/image/food0.png",
+        GetBuilder<RecommendedProductController>(
+          builder: (recommendedProduct) {
+            return recommendedProduct.isLoaded
+                ? Container(
+                    height: 145.0 *
+                        recommendedProduct.recommendedProductList.length
+                            .toDouble(),
+                    child: ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount:
+                            recommendedProduct.recommendedProductList.length,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            margin: EdgeInsets.only(
+                              left: 20,
+                              right: 20,
+                              bottom: 20,
                             ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          height: 100,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(20),
-                              bottomRight: Radius.circular(20),
-                            ),
-                            color: Colors.white,
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              left: 10,
-                              right: 10,
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            child: Row(
                               children: [
-                                BigText(text: "Nutritious fuit meal in China"),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                SmallText(
-                                  text: "With chinese characteristics",
-                                  size: 15,
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    IconAndTextWidget(
-                                      text: "Normal",
-                                      icon: Icons.circle_sharp,
-                                      iconColor: AppColors.iconColor1,
+                                Container(
+                                  width: 120,
+                                  height: 120,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(
+                                      20,
                                     ),
-                                    IconAndTextWidget(
-                                      text: "1.7 km",
-                                      icon: Icons.location_on,
-                                      iconColor: AppColors.mainColor,
+                                    color: Colors.white,
+                                    image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(AppConstants.baseUrl +
+                                          AppConstants.uploadUrl +
+                                          recommendedProduct
+                                              .recommendedProductList[index]
+                                              .img!),
                                     ),
-                                    IconAndTextWidget(
-                                      text: "32 min",
-                                      icon: Icons.access_time_rounded,
-                                      iconColor: AppColors.iconColor2,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Container(
+                                    height: 100,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                        topRight: Radius.circular(20),
+                                        bottomRight: Radius.circular(20),
+                                      ),
+                                      color: Colors.white,
                                     ),
-                                  ],
+                                    child: Padding(
+                                      padding: EdgeInsets.only(
+                                        left: 10,
+                                        right: 10,
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          BigText(
+                                              text: recommendedProduct
+                                                  .recommendedProductList[index]
+                                                  .name!),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          SmallText(
+                                            text:
+                                                "With chinese characteristics",
+                                            size: 15,
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              IconAndTextWidget(
+                                                text: "Normal",
+                                                icon: Icons.circle_sharp,
+                                                iconColor: AppColors.iconColor1,
+                                              ),
+                                              IconAndTextWidget(
+                                                text: "1.7 km",
+                                                icon: Icons.location_on,
+                                                iconColor: AppColors.mainColor,
+                                              ),
+                                              IconAndTextWidget(
+                                                text: "32 min",
+                                                icon: Icons.access_time_rounded,
+                                                iconColor: AppColors.iconColor2,
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              }),
+                          );
+                        }),
+                  )
+                : CircularProgressIndicator(
+                    color: AppColors.mainColor,
+                  );
+          },
         ),
       ],
     );
@@ -259,8 +279,9 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               color: index.isEven ? Color(0xFF69c5df) : Color(0xFF9294cc),
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(
-                    AppConstants.baseUrl + "/uploads/" + popularProduct.img!),
+                image: NetworkImage(AppConstants.baseUrl +
+                    AppConstants.uploadUrl +
+                    popularProduct.img!),
               ),
             ),
           ),

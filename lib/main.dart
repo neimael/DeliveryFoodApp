@@ -1,4 +1,5 @@
 import 'package:deliveryfood/controllers/popular_product_controller.dart';
+import 'package:deliveryfood/controllers/recommended_product_controller.dart';
 import 'package:deliveryfood/pages/food/popular_food_details.dart';
 import 'package:deliveryfood/pages/food/recommanded_food_details.dart';
 import 'package:deliveryfood/pages/home/food_page_body.dart';
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.find<PopularProductController>().getPopularProductList();
+    Get.find<RecommendedProductController>().getRecommendedProductList();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: const MainFoodPage(),
