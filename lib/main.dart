@@ -1,6 +1,7 @@
 import 'package:deliveryfood/controllers/popular_product_controller.dart';
 import 'package:deliveryfood/pages/food/popular_food_details.dart';
 import 'package:deliveryfood/pages/food/recommanded_food_details.dart';
+import 'package:deliveryfood/pages/home/food_page_body.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'helpers/dependencies.dart' as dep;
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
     Get.find<PopularProductController>().getPopularProductList();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const RecommandedFoodDetails(),
+      home: const MainFoodPage(),
     );
   }
 }

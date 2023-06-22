@@ -8,7 +8,7 @@ import '../utils/constants.dart';
 
 Future<void> init() async {
   Get.lazyPut(
-    () => ApiClient(appBaseUrl: "http://mvs.bslmeiyu.com"),
+    () => ApiClient(appBaseUrl: AppConstants.baseUrl),
   );
 
   Get.lazyPut(
