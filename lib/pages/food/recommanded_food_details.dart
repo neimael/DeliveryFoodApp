@@ -4,6 +4,7 @@ import 'package:deliveryfood/widgets/big_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../routes/route_helper.dart';
 import '../../widgets/expandable_text.dart';
 import '../home/main_food_page.dart';
 
@@ -24,8 +25,8 @@ class RecommandedFoodDetails extends StatelessWidget {
               children: [
                 GestureDetector(
                     onTap: () {
-                      Get.to(
-                        () => MainFoodPage(),
+                      Get.toNamed(
+                        RouteHelper.getInitial(),
                       );
                     },
                     child: AppIconWidget(icon: Icons.clear)),
