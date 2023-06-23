@@ -2,8 +2,10 @@ import 'package:deliveryfood/utils/colors.dart';
 import 'package:deliveryfood/widgets/app_icon.dart';
 import 'package:deliveryfood/widgets/big_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../widgets/expandable_text.dart';
+import '../home/main_food_page.dart';
 
 class RecommandedFoodDetails extends StatelessWidget {
   const RecommandedFoodDetails({super.key});
@@ -16,10 +18,17 @@ class RecommandedFoodDetails extends StatelessWidget {
         slivers: [
           SliverAppBar(
             toolbarHeight: 70,
+            automaticallyImplyLeading: false,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppIconWidget(icon: Icons.clear),
+                GestureDetector(
+                    onTap: () {
+                      Get.to(
+                        () => MainFoodPage(),
+                      );
+                    },
+                    child: AppIconWidget(icon: Icons.clear)),
                 AppIconWidget(icon: Icons.shopping_cart_outlined),
               ],
             ),
