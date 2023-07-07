@@ -1,3 +1,4 @@
+import 'package:deliveryfood/controllers/cart_controller.dart';
 import 'package:deliveryfood/controllers/popular_product_controller.dart';
 import 'package:deliveryfood/pages/home/main_food_page.dart';
 import 'package:deliveryfood/utils/constants.dart';
@@ -22,7 +23,7 @@ class PopularFoodDetails extends StatelessWidget {
     var product =
         Get.find<PopularProductController>().popularProductList[pageId];
 
-    Get.find<PopularProductController>().initProduct();
+    Get.find<PopularProductController>().initProduct(Get.find<CartController>());
 
     return Scaffold(
         backgroundColor: Colors.white,

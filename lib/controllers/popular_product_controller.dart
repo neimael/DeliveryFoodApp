@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:get/get.dart';
 
+import 'cart_controller.dart';
+
 class PopularProductController extends GetxController {
   final PopularProductRepo popularProductRepo;
 
@@ -12,6 +14,8 @@ class PopularProductController extends GetxController {
 
   List<dynamic> _popularProductList = [];
   List<dynamic> get popularProductList => _popularProductList;
+
+  late CartController _cart;
 
   bool _isLoaded = false;
   bool get isLoaded => _isLoaded;
@@ -63,8 +67,13 @@ class PopularProductController extends GetxController {
     }
   }
 
-  void initProduct() {
+  void initProduct(CartController cart) {
     _quantity = 0;
     _inCartItems = 0;
+    _cart = cart;
+  }
+
+  void addItem(ProductModel product) {
+    _cart.addItem(product, _quantity);
   }
 }
