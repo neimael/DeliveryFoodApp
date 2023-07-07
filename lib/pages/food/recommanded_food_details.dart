@@ -1,4 +1,7 @@
+import 'package:deliveryfood/controllers/popular_product_controller.dart';
+import 'package:deliveryfood/controllers/recommended_product_controller.dart';
 import 'package:deliveryfood/utils/colors.dart';
+import 'package:deliveryfood/utils/constants.dart';
 import 'package:deliveryfood/widgets/app_icon.dart';
 import 'package:deliveryfood/widgets/big_text.dart';
 import 'package:flutter/material.dart';
@@ -9,10 +12,15 @@ import '../../widgets/expandable_text.dart';
 import '../home/main_food_page.dart';
 
 class RecommandedFoodDetails extends StatelessWidget {
-  const RecommandedFoodDetails({super.key});
+  final int pageId;
+  const RecommandedFoodDetails({super.key, required this.pageId});
 
   @override
   Widget build(BuildContext context) {
+    var product =
+        Get.find<RecommendedProductController>().recommendedProductList[pageId];
+
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
@@ -39,7 +47,7 @@ class RecommandedFoodDetails extends StatelessWidget {
               child: Container(
                 child: Center(
                   child: BigText(
-                    text: "Chinese Side",
+                    text: product.name!,
                     size: 26,
                   ),
                 ),
@@ -60,27 +68,26 @@ class RecommandedFoodDetails extends StatelessWidget {
             expandedHeight: 300,
             backgroundColor: AppColors.yellowColor,
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.asset(
-                "assets/image/food0.png",
+              background: Image.network(
+                AppConstants.baseUrl + AppConstants.uploadUrl + product.img!,
                 width: double.maxFinite,
                 fit: BoxFit.cover,
               ),
             ),
           ),
           SliverToBoxAdapter(
-            child: Container(
-              margin: EdgeInsets.only(
-                left: 20,
-                right: 20,
-              ),
-              child: Column(
-                children: [
-                  ExpandableTextWidget(
-                    text:
-                        "Introducing our new app, designed to revolutionize the way you manage your daily tasks and stay organized. With our app, you can effortlessly plan your schedule, set reminders, and keep track of all your important deadlines. The intuitive user interface makes navigation a breeze, allowing you to easily create and categorize tasks, prioritize them, and mark them as complete. Stay on top of your commitments with customizable notifications that ensure you never miss a deadline. Our app also offers seamless integration with popular calendar platforms, enabling you to sync your events and appointments effortlessly. Take control of your productivity and streamline your life with our app, your ultimate companion for efficient task management. Download now and experience the power of organization at your fingertips. Introducing our new app, designed to revolutionize the way you manage your daily tasks and stay organized. With our app, you can effortlessly plan your schedule, set reminders, and keep track of all your important deadlines. The intuitive user interface makes navigation a breeze, allowing you to easily create and categorize tasks, prioritize them, and mark them as complete. Stay on top of your commitments with customizable notifications that ensure you never miss a deadline. Our app also offers seamless integration with popular calendar platforms, enabling you to sync your events and appointments effortlessly. Take control of your productivity and streamline your life with our app, your ultimate companion for efficient task management. Download now and experience the power of organization at your fingertips. Introducing our new app, designed to revolutionize the way you manage your daily tasks and stay organized. With our app, you can effortlessly plan your schedule, set reminders, and keep track of all your important deadlines. The intuitive user interface makes navigation a breeze, allowing you to easily create and categorize tasks, prioritize them, and mark them as complete. Stay on top of your commitments with customizable notifications that ensure you never miss a deadline. Our app also offers seamless integration with popular calendar platforms, enabling you to sync your events and appointments effortlessly. Take control of your productivity and streamline your life with our app, your ultimate companion for efficient task management. Download now and experience the power of organization at your fingertips. Introducing our new app, designed to revolutionize the way you manage your daily tasks and stay organized. With our app, you can effortlessly plan your schedule, set reminders, and keep track of all your important deadlines. The intuitive user interface makes navigation a breeze, allowing you to easily create and categorize tasks, prioritize them, and mark them as complete. Stay on top of your commitments with customizable notifications that ensure you never miss a deadline. Our app also offers seamless integration with popular calendar platforms, enabling you to sync your events and appointments effortlessly. Take control of your productivity and streamline your life with our app, your ultimate companion for efficient task management. Download now and experience the power of organization at your fingertips.",
+            child: Column(
+              children: [
+                Container(
+                  child: ExpandableTextWidget(
+                    text: product.description!,
                   ),
-                ],
-              ),
+                  margin: EdgeInsets.only(
+                    left: 20,
+                    right: 20,
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -105,7 +112,7 @@ class RecommandedFoodDetails extends StatelessWidget {
                   iconSize: 24,
                 ),
                 BigText(
-                  text: " 60 DH " + " x " + " 0 ",
+                  text: " ${product.price!}0 DH " + " x " + " 0 ",
                   color: AppColors.mainBlackColor,
                   size: 26,
                 ),
@@ -167,7 +174,7 @@ class RecommandedFoodDetails extends StatelessWidget {
                     color: AppColors.mainColor,
                   ),
                   child: BigText(
-                    text: "60 DH Add To Cart",
+                    text: "${product.price!}0 DH Add To Cart",
                     color: Colors.white,
                   ),
                 ),
