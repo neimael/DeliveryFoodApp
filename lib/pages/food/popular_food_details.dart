@@ -23,7 +23,8 @@ class PopularFoodDetails extends StatelessWidget {
     var product =
         Get.find<PopularProductController>().popularProductList[pageId];
 
-    Get.find<PopularProductController>().initProduct(Get.find<CartController>());
+    Get.find<PopularProductController>()
+        .initProduct(Get.find<CartController>());
 
     return Scaffold(
         backgroundColor: Colors.white,
@@ -188,15 +189,20 @@ class PopularFoodDetails extends StatelessWidget {
                       left: 20,
                       right: 20,
                     ),
+                    child: GestureDetector(
+                      onTap: () {
+                        popularProduct.addItem(product);
+                      },
+                      child: BigText(
+                        text: "${product.price!}0 DH Add To Cart",
+                        color: Colors.white,
+                      ),
+                    ),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(
                         20,
                       ),
                       color: AppColors.mainColor,
-                    ),
-                    child: BigText(
-                      text: "${product.price!}0 DH Add To Cart",
-                      color: Colors.white,
                     ),
                   ),
                 ],
