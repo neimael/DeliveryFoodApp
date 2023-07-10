@@ -65,9 +65,42 @@ class PopularFoodDetails extends StatelessWidget {
                       icon: Icons.arrow_back,
                     ),
                   ),
-                  AppIconWidget(
-                    icon: Icons.shopping_cart_outlined,
-                  ),
+                  GetBuilder<PopularProductController>(
+                    builder: (controller) {
+                      return Stack(
+                        children: [
+                          AppIconWidget(
+                            icon: Icons.shopping_cart_outlined,
+                          ),
+                          Get.find<PopularProductController>().totalItems >= 1
+                              ? Positioned(
+                                  right: 0,
+                                  top: 0,
+                                  child: AppIconWidget(
+                                    icon: Icons.circle,
+                                    size: 18,
+                                    iconColor: Colors.transparent,
+                                    backgroundColor: AppColors.mainColor,
+                                  ),
+                                )
+                              : Container(),
+                          Get.find<PopularProductController>().totalItems >= 1
+                              ? Positioned(
+                                  right: 5,
+                                  top: 3,
+                                  child: BigText(
+                                    text: Get.find<PopularProductController>()
+                                        .totalItems
+                                        .toString(),
+                                    size: 12,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              : Container(),
+                        ],
+                      );
+                    },
+                  )
                 ],
               ),
             ),
