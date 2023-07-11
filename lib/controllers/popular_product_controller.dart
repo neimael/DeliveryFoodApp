@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:get/get.dart';
 
+import '../models/cart_model.dart';
 import 'cart_controller.dart';
 
 class PopularProductController extends GetxController {
@@ -100,5 +101,9 @@ class PopularProductController extends GetxController {
 
   int get totalItems {
     return _cart.totalItems;
+  }
+
+  List<CartModel> get getItems {
+    return _cart.getItems;
   }
 }
