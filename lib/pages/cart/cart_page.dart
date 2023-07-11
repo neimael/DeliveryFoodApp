@@ -1,5 +1,6 @@
 import 'package:deliveryfood/controllers/cart_controller.dart';
 import 'package:deliveryfood/pages/home/main_food_page.dart';
+import 'package:deliveryfood/routes/route_helper.dart';
 import 'package:deliveryfood/utils/colors.dart';
 import 'package:deliveryfood/utils/constants.dart';
 import 'package:deliveryfood/widgets/app_icon.dart';
@@ -39,7 +40,7 @@ class CartPage extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Get.to(() => MainFoodPage());
+                    Get.toNamed(RouteHelper.getInitial());
                   },
                   child: AppIconWidget(
                     icon: Icons.home,
@@ -71,8 +72,9 @@ class CartPage extends StatelessWidget {
                   removeTop: true,
                   child: GetBuilder<CartController>(
                     builder: (CartController) {
+                      var _cartList = CartController.getItems;
                       return ListView.builder(
-                        itemCount: CartController.getItems.length,
+                        itemCount: _cartList.length,
                         itemBuilder: (_, index) {
                           return Container(
                             height: 100,
@@ -145,7 +147,10 @@ class CartPage extends StatelessWidget {
                                                 children: [
                                                   GestureDetector(
                                                     onTap: () {
-                                                      // popularProduct.setQuantity(false);
+                                                      CartController.addItem(
+                                                          _cartList[index]
+                                                              .product!,
+                                                          -1);
                                                     },
                                                     child: Icon(
                                                       Icons.remove,
@@ -158,16 +163,20 @@ class CartPage extends StatelessWidget {
                                                     width: 5,
                                                   ),
                                                   BigText(
-                                                    text: "0",
+                                                    text: _cartList[index]
+                                                        .quantity
+                                                        .toString(),
                                                     size: 18,
-                                                    // popularProduct.inCartItems.toString()
                                                   ),
                                                   SizedBox(
                                                     width: 5,
                                                   ),
                                                   GestureDetector(
                                                     onTap: () {
-                                                      //popularProduct.setQuantity(true);
+                                                      CartController.addItem(
+                                                          _cartList[index]
+                                                              .product!,
+                                                          1);
                                                     },
                                                     child: Icon(
                                                       Icons.add,
