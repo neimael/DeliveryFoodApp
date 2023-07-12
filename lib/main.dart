@@ -3,6 +3,7 @@ import 'package:deliveryfood/controllers/recommended_product_controller.dart';
 import 'package:deliveryfood/pages/food/popular_food_details.dart';
 import 'package:deliveryfood/pages/food/recommanded_food_details.dart';
 import 'package:deliveryfood/pages/home/food_page_body.dart';
+import 'package:deliveryfood/pages/splash/splash_page.dart';
 import 'package:deliveryfood/routes/route_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
     Get.find<RecommendedProductController>().getRecommendedProductList();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: RouteHelper.initial,
+      initialRoute: RouteHelper.getSplashPage(),
       getPages: RouteHelper.routes,
     );
   }
