@@ -1,5 +1,6 @@
 import 'package:deliveryfood/pages/food/popular_food_details.dart';
 import 'package:deliveryfood/pages/food/recommanded_food_details.dart';
+import 'package:deliveryfood/pages/home/home_page.dart';
 import 'package:deliveryfood/pages/home/main_food_page.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
@@ -31,7 +32,7 @@ class RouteHelper {
   static List<GetPage> routes = [
     GetPage(
       name: initial,
-      page: () => MainFoodPage(),
+      page: () => HomePage(),
     ),
     GetPage(
       name: popularFood,
