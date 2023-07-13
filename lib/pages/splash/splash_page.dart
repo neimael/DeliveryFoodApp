@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import '../../controllers/popular_product_controller.dart';
+import '../../controllers/recommended_product_controller.dart';
+
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
@@ -16,10 +19,15 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   late Animation<double> animation;
   late AnimationController _controller;
 
+  Future<void> _loadResources() async {
+    await Get.find<PopularProductController>().getPopularProductList();
+    await Get.find<RecommendedProductController>().getRecommendedProductList();
+  }
+
   @override
   void initState() {
     super.initState();
-    
+    _loadResources();
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 2),
@@ -31,7 +39,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
     );
 
     Timer(Duration(seconds: 3), () {
-       Get.offNamed(RouteHelper.getInitial());
+      Get.offNamed(RouteHelper.getInitial());
     });
   }
 
