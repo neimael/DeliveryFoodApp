@@ -85,4 +85,14 @@ class CartRepo {
     cart = [];
     sharedPreferences.remove(AppConstants.cartList);
   }
+
+  // void removeCart() {
+  //   cart = [];
+  //   sharedPreferences.remove(AppConstants.cartList);
+  // }
+
+  // void removeCart() {
+  //   cart = [];
+  //   sharedPreferences.remove(AppConstants.cartList);
+  // }
 }
