@@ -1,13 +1,34 @@
+import 'package:deliveryfood/controllers/cart_controller.dart';
 import 'package:deliveryfood/utils/colors.dart';
+import 'package:deliveryfood/utils/constants.dart';
 import 'package:deliveryfood/widgets/app_icon.dart';
 import 'package:deliveryfood/widgets/big_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CartHistory extends StatelessWidget {
   const CartHistory({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var getCartHistoryList = Get.find<CartController>().getCartHistoryList();
+    Map<String, int> cartItemsPerOrder = Map();
+
+    for (int i = 0; i < getCartHistoryList.length; i++) {
+      if (cartItemsPerOrder.containsKey(getCartHistoryList[i].time)) {
+        cartItemsPerOrder.update(
+            getCartHistoryList[i].time!, (value) => ++value);
+      } else {
+        cartItemsPerOrder.putIfAbsent(getCartHistoryList[i].time!, () => 1);
+      }
+    }
+    List<int> cartOrderTimeToList() {
+      return cartItemsPerOrder.entries.map((e) => e.value).toList();
+    }
+
+    List<int> orderTimes = cartOrderTimeToList();
+    var listCounter = 0;
+
     return Scaffold(
       body: Column(
         children: [
@@ -32,6 +53,72 @@ class CartHistory extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+          Expanded(
+            child: Container(
+                margin: EdgeInsets.only(
+                  top: 20,
+                  left: 20,
+                  right: 20,
+                ),
+                child: MediaQuery.removePadding(
+                  removeTop: true,
+                  context: context,
+                  child: ListView(
+                    children: [
+                      for (var i = 0; i < cartItemsPerOrder.length; i++)
+                        Container(
+                          margin: EdgeInsets.only(
+                            bottom: 20,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              BigText(text: "xbshxb s"),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                children: [
+                                  Wrap(
+                                    direction: Axis.horizontal,
+                                    children: List.generate(
+                                      orderTimes[i],
+                                      (index) {
+                                        if (listCounter <
+                                            getCartHistoryList.length) {
+                                          listCounter++;
+                                        }
+                                        return Container(
+                                          height: 80,
+                                          width: 80,
+                                          margin: EdgeInsets.only(
+                                            right: 5,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(7),
+                                            image: DecorationImage(
+                                                fit: BoxFit.cover,
+                                                image: NetworkImage(
+                                                    AppConstants.baseUrl +
+                                                        AppConstants.uploadUrl +
+                                                        getCartHistoryList[
+                                                                listCounter - 1]
+                                                            .img!)),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                    ],
+                  ),
+                )),
           ),
         ],
       ),
