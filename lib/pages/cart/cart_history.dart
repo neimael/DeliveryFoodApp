@@ -3,8 +3,10 @@ import 'package:deliveryfood/utils/colors.dart';
 import 'package:deliveryfood/utils/constants.dart';
 import 'package:deliveryfood/widgets/app_icon.dart';
 import 'package:deliveryfood/widgets/big_text.dart';
+import 'package:deliveryfood/widgets/small_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class CartHistory extends StatelessWidget {
   const CartHistory({super.key});
@@ -37,7 +39,7 @@ class CartHistory extends StatelessWidget {
             width: double.maxFinite,
             height: 100,
             padding: EdgeInsets.only(
-              top: 45,
+              top: 35,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -68,17 +70,31 @@ class CartHistory extends StatelessWidget {
                     children: [
                       for (var i = 0; i < cartItemsPerOrder.length; i++)
                         Container(
+                          height: 120,
                           margin: EdgeInsets.only(
                             bottom: 20,
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              BigText(text: "xbshxb s"),
+                              (() {
+                                DateTime parseDate =
+                                    DateFormat("yyy-MM-dd HH:mm:ss").parse(
+                                        getCartHistoryList[listCounter].time!);
+                                var outputFormat =
+                                    DateFormat("MM/dd/yyyy hh:mm a");
+                                var outputDate = outputFormat.format(parseDate);
+                                return BigText(
+                                  text: outputDate,
+                                  size: 18,
+                                );
+                              }()),
                               SizedBox(
                                 height: 10,
                               ),
                               Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Wrap(
                                     direction: Axis.horizontal,
@@ -89,26 +105,68 @@ class CartHistory extends StatelessWidget {
                                             getCartHistoryList.length) {
                                           listCounter++;
                                         }
-                                        return Container(
-                                          height: 80,
-                                          width: 80,
-                                          margin: EdgeInsets.only(
-                                            right: 5,
+                                        return index <= 2
+                                            ? Container(
+                                                height: 80,
+                                                width: 80,
+                                                margin: EdgeInsets.only(
+                                                  right: 5,
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(7),
+                                                  image: DecorationImage(
+                                                      fit: BoxFit.cover,
+                                                      image: NetworkImage(
+                                                          AppConstants.baseUrl +
+                                                              AppConstants
+                                                                  .uploadUrl +
+                                                              getCartHistoryList[
+                                                                      listCounter -
+                                                                          1]
+                                                                  .img!)),
+                                                ),
+                                              )
+                                            : Container();
+                                      },
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 80,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        SmallText(
+                                          text: "Total",
+                                          color: AppColors.titleColor,
+                                        ),
+                                        BigText(
+                                          text: orderTimes[i].toString() +
+                                              " Items",
+                                          color: AppColors.titleColor,
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 10,
+                                            vertical: 5,
                                           ),
                                           decoration: BoxDecoration(
                                             borderRadius:
-                                                BorderRadius.circular(7),
-                                            image: DecorationImage(
-                                                fit: BoxFit.cover,
-                                                image: NetworkImage(
-                                                    AppConstants.baseUrl +
-                                                        AppConstants.uploadUrl +
-                                                        getCartHistoryList[
-                                                                listCounter - 1]
-                                                            .img!)),
+                                                BorderRadius.circular(5),
+                                            border: Border.all(
+                                              width: 1,
+                                              color: AppColors.mainColor,
+                                            ),
                                           ),
-                                        );
-                                      },
+                                          child: SmallText(
+                                            text: "One more",
+                                            color: AppColors.mainColor,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ],
