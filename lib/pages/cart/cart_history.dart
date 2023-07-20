@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:deliveryfood/controllers/cart_controller.dart';
+import 'package:deliveryfood/models/cart_model.dart';
 import 'package:deliveryfood/utils/colors.dart';
 import 'package:deliveryfood/utils/constants.dart';
 import 'package:deliveryfood/widgets/app_icon.dart';
@@ -26,11 +29,16 @@ class CartHistory extends StatelessWidget {
         cartItemsPerOrder.putIfAbsent(getCartHistoryList[i].time!, () => 1);
       }
     }
-    List<int> cartOrderTimeToList() {
+
+    List<String> cartOrderTimeToList() {
+      return cartItemsPerOrder.entries.map((e) => e.key).toList();
+    }
+
+    List<int> cartItemsPerOrderToList() {
       return cartItemsPerOrder.entries.map((e) => e.value).toList();
     }
 
-    List<int> orderTimes = cartOrderTimeToList();
+    List<int> orderTimes = cartItemsPerOrderToList();
     var listCounter = 0;
 
     return Scaffold(
@@ -150,22 +158,50 @@ class CartHistory extends StatelessWidget {
                                               " Items",
                                           color: AppColors.titleColor,
                                         ),
-                                        Container(
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: 10,
-                                            vertical: 5,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                            border: Border.all(
-                                              width: 1,
+                                        GestureDetector(
+                                          onTap: () {
+                                            var orderTime =
+                                                cartOrderTimeToList();
+                                            Map<int, CartModel> moreOrder = {};
+                                            for (var j = 0;
+                                                j < getCartHistoryList.length;
+                                                j++) {
+                                              if (getCartHistoryList[j].time ==
+                                                  orderTime[i]) {
+                                                moreOrder.putIfAbsent(
+                                                  getCartHistoryList[j].id!,
+                                                  () => CartModel.fromJson(
+                                                    jsonDecode(
+                                                      jsonEncode(
+                                                        getCartHistoryList[j],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                            }
+                                            Get.find<CartController>()
+                                                .setItems = moreOrder;
+                                            Get.find<CartController>()
+                                                .addToCartList();
+                                          },
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: 10,
+                                              vertical: 5,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              border: Border.all(
+                                                width: 1,
+                                                color: AppColors.mainColor,
+                                              ),
+                                            ),
+                                            child: SmallText(
+                                              text: "One more",
                                               color: AppColors.mainColor,
                                             ),
-                                          ),
-                                          child: SmallText(
-                                            text: "One more",
-                                            color: AppColors.mainColor,
                                           ),
                                         ),
                                       ],
