@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:deliveryfood/controllers/cart_controller.dart';
 import 'package:deliveryfood/models/cart_model.dart';
+import 'package:deliveryfood/routes/route_helper.dart';
 import 'package:deliveryfood/utils/colors.dart';
 import 'package:deliveryfood/utils/constants.dart';
 import 'package:deliveryfood/widgets/app_icon.dart';
@@ -184,6 +185,9 @@ class CartHistory extends StatelessWidget {
                                                 .setItems = moreOrder;
                                             Get.find<CartController>()
                                                 .addToCartList();
+                                            Get.toNamed(
+                                              RouteHelper.getCartPage(),
+                                            );
                                           },
                                           child: Container(
                                             padding: EdgeInsets.symmetric(
