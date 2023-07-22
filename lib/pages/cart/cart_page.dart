@@ -268,78 +268,82 @@ class CartPage extends StatelessWidget {
         bottomNavigationBar: GetBuilder<CartController>(
           builder: (CartController) {
             return Container(
-                height: 120,
-                padding: EdgeInsets.only(
-                  top: 30,
-                  bottom: 30,
-                  left: 20,
-                  right: 20,
+              height: 120,
+              padding: EdgeInsets.only(
+                top: 30,
+                bottom: 30,
+                left: 20,
+                right: 20,
+              ),
+              decoration: BoxDecoration(
+                color: AppColors.buttonBackgroundColor,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(40),
+                  topRight: Radius.circular(40),
                 ),
-                decoration: BoxDecoration(
-                  color: AppColors.buttonBackgroundColor,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(40),
-                    topRight: Radius.circular(40),
-                  ),
-                ),
-                child: CartController.getItems.length > 0
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
+              ),
+              child: CartController.getItems.length > 0
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.only(
+                            top: 20,
+                            bottom: 20,
+                            left: 20,
+                            right: 20,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(
+                              20,
+                            ),
+                            color: Colors.white,
+                          ),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 5,
+                              ),
+                              BigText(
+                                text: CartController.totalAmount.toString() +
+                                    " DH",
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                            ],
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            CartController.addToHistory();
+                          },
+                          child: Container(
                             padding: EdgeInsets.only(
                               top: 20,
                               bottom: 20,
                               left: 20,
                               right: 20,
                             ),
+                            child: BigText(
+                              text: "Check Out",
+                              color: Colors.white,
+                            ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(
                                 20,
                               ),
-                              color: Colors.white,
-                            ),
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                BigText(
-                                  text: CartController.totalAmount.toString() +
-                                      " DH",
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                              ],
+                              color: AppColors.mainColor,
+                              // color: AppColors.mainColor,
+                              // color: AppColors.mainColor,
+                              // color: AppColors.mainColor,
                             ),
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              CartController.addToHistory();
-                            },
-                            child: Container(
-                              padding: EdgeInsets.only(
-                                top: 20,
-                                bottom: 20,
-                                left: 20,
-                                right: 20,
-                              ),
-                              child: BigText(
-                                text: "Check Out",
-                                color: Colors.white,
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                  20,
-                                ),
-                                color: AppColors.mainColor,
-                              ),
-                            ),
-                          ),
-                        ],
-                      )
-                    : Container(),);
+                        ),
+                      ],
+                    )
+                  : Container(),
+            );
           },
         ));
   }
